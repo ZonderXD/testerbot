@@ -1,5 +1,6 @@
 import discord
 import jishaku
+import os
 from discord.ext import commands
 from discord.utils import get
 
