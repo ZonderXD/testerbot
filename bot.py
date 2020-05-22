@@ -38,26 +38,6 @@ async def on_ready():
 async def is_owner(ctx):
     return ctx.author.id == 668325441224048641 or  ctx.author.id == 491928659599425537 # Айди создателя бота
 
-@bot.event
-async def on_message(msg):
-    await bot.process_commands( msg )
-    if msg.author.bot or msg.author.id == 668325441224048641 or msg.author.id == 342317507991961602 or msg.author.id == 491928659599425537:
-        pass
-    else:
-        mes = msg.content.lower()
-        author = msg.author
-        mat = open('mat.txt', 'r', encoding='utf-8')
-        for line in mat:
-            if mes.find(line[0:-1]) != -1:
-                if msg.author.bot:
-                    pass
-                else:
-                    await msg.delete()
-                    await msg.channel.send(embed = discord.Embed(description= f"**{author.mention}, Вы написали сообщение в котором есть запрещённое слово!**", color = 0x75218f))
-                    print(f"⊱ {author.name}, произнёс слово [{msg.content}] ⊰")
-    
-        mat.close()
-
 def random_meme():
     with open('memes_data.txt', 'r') as file:
         memes = file.read().split(',')
