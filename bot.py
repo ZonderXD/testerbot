@@ -18,7 +18,7 @@ from discord.ext import commands
 from discord.utils import get
 from Cybernator import Paginator
 
-bot = commands.Bot(command_prefix='.')
+bot = commands.Bot(command_prefix='#')
 bot.remove_command('help')
 
 conn = sqlite3.connect("database.sqlite")
@@ -26,11 +26,11 @@ cursor = conn.cursor()
 
 @bot.event
 async def on_ready():
-    print(f'          [Bloody X]')
-    await bot.change_presence(status = discord.Status.idle, activity = discord.Game('⊱ Prefix: . ⊰'))
-    print(f"[Bloody X] Bot successfully launched!;")
-    print(f"[Bloody X] Name: [{bot.user}];")
-    print(f'[Bloody X] ID: [{bot.user.id}]')
+    print(f'          [Lenik]')
+    await bot.change_presence(status = discord.Status.idle, activity = discord.Game('Type #help'))
+    print(f"[Lenik] Bot successfully launched!;")
+    print(f"[Lenik] Name: [{bot.user}];")
+    print(f'[Lenik] ID: [{bot.user.id}]')
     print('[------------------------------]')
     print(f'          [Other]')
 
