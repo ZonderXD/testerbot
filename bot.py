@@ -36,22 +36,7 @@ async def on_ready():
 
 @bot.event
 async def is_owner(ctx):
-    return ctx.author.id == 668325441224048641 # Айди создателя бота
-
-@bot.command( pass_context = True, aliases = [ "Предложить", "предложить", "предложка", "Предложка", "Suggest" ])
-async def suggest( ctx , * , agr ):
-    if ctx.author.id == 662346548025491476:
-        await ctx.send(embed = discord.Embed(description = f"**Извините, но Вы не можете использовать данную команду так как создатель бота запретил Вам доступ к этой команде!**"))
-    else:
-        await ctx.message.add_reaction('✅')
-        suggest_chanell = bot.get_channel( 703655454563237969 ) #Айди канала предложки
-        embed = discord.Embed(title=f"{ctx.author.name} Предложил :", description= f" {agr} \n\n")
-
-        embed.set_thumbnail(url=ctx.guild.icon_url)
-
-        message = await suggest_chanell.send(embed=embed)
-        await message.add_reaction('✅')
-        await message.add_reaction('❎')
+    return ctx.author.id == 668325441224048641 or  ctx.author.id == 491928659599425537 # Айди создателя бота
 
 @bot.event
 async def on_message(msg):
@@ -72,64 +57,6 @@ async def on_message(msg):
                     print(f"⊱ {author.name}, произнёс слово [{msg.content}] ⊰")
     
         mat.close()
-    
-    cursor.execute(f"SELECT * FROM main WHERE id = {msg.author.id}")
-    res = cursor.fetchall()
-
-    if not res:
-        cursor.execute(f"INSERT INTO main (id, nickname, money, lvl, xp, bonus) VALUES ({msg.author.id}, '{msg.author.name}', 0, 0, 0, 0)")
-        conn.commit()
-@bot.event
-async def on_voice_state_update(member,before,after):
-    if after.channel != None and after.channel.id == 712629884119416944:
-        for guild in bot.guilds:
-            if guild.id == 696322642747064380:
-                mainCategory = discord.utils.get(guild.categories, id=712629625049579561)
-                channel2 = await guild.create_voice_channel(name=f"🌄╎{member.display_name}",category=mainCategory, user_limit=1)
-                await member.move_to(channel2)
-                def check(a,b,c):
-                    return len(channel2.members) == 0
-                await bot.wait_for('voice_state_update', check=check)
-                await channel2.delete()
-@bot.command()
-@commands.check(is_owner)
-async def balance(ctx):
-    for row in cursor.execute(f'SELECT money FROM main WHERE id = {ctx.message.author.id}'):
-        bal = row[0]
-        await ctx.send(embed = discord.Embed(description = f'**Твой баланс: `{row[0]}`<:bloody_x_coin:705353020895920168> **', color=0x75218f))
-
-@bot.command()
-@commands.check(is_owner)
-async def bonus(ctx):
-    time_now = time.time()
-    print(time_now)
-
-    for row in cursor.execute(f'SELECT money, bonus FROM main WHERE id={ctx.author.id}'):
-        bonus = row[1]
-        LVL = row[0]
-    
-    if int(time_now) - bonus >= 10800:
-        amount = random.randint(100, 1000)
-        await ctx.send(embed=discord.Embed(description=f'Вы получили свой бонус в размере {amount}<:bloody_x_coin:705353020895920168>!', color = 0xff7373))
-        
-
-        LVL += amount
-        bonus += int(time_now)
-
-        cursor.execute(f"UPDATE main SET money = {LVL}, bonus = {bonus} WHERE id={ctx.author.id}")
-        conn.commit()
-    else:
-        await ctx.send(embed = discord.Embed(description = f'**{ctx.author.name}, эту команду можно использовать только раз в 3 часа!**', color = 0xff7373))    
-
-@bot.command()
-@commands.check(is_owner)
-async def opros(ctx, *, arg):
-	await ctx.message.delete()
-	embed = discord.Embed(title=f"Опрос:", color = 0x00ffff)
-	embed.add_field(name=f'**Вопрос:**', value=f"**{arg}**\n", inline=False)  # Создает строку
-	embed.add_field(name=f'**Решение:**', value="**-=-=- Да - ❤ -=-=-\n -=-=- Нет - 💔 -=-=-**\n\n", inline=False)  # Создает строку
-	embed.add_field(name=f'**Инфо:**', value="**Голосование будет длиться 1 минуту!**", inline=False)  # Создает строку
-	await ctx.send(embed=embed)
 
 def random_meme():
     with open('memes_data.txt', 'r') as file:
@@ -169,7 +96,7 @@ async def giveaway( ctx, seconds: int, *, text ):
         colour = 0x75218f).set_footer(
         text = 'Ｓㄚ 么  乙  ツ#8992 © | Все права защищены',
         icon_url = ctx.message.author.avatar_url))
-    await message.add_reaction("<:bloody_x_verify:705059287449468949>")
+    await message.add_reaction("")
     while seconds > -1:
         time_end = time_end_form(seconds)
         text_message = discord.Embed(
@@ -232,71 +159,10 @@ async def neko(ctx):
     await ctx.send(embed = embed)
 
 @bot.command()
-@commands.cooldown(1, 1500, commands.BucketType.user)
-@commands.check(is_owner)
-async def nswf(ctx):
-    number = random.randint(1,3)
-    if (number == 1): 
-        embed = discord.Embed(description = f"{ctx.author.mention} вот тебе 18+:", colour = 0xff0000)
-        embed.set_image(url=nekos.img('random_hentai_gif'))
-    if (number == 2):
-        embed = discord.Embed(description = f"{ctx.author.mention} Вот тебе nswf:", colour = 0xff0000)
-        embed.set_image(url=nekos.img('classic'))
-    if (number == 3):
-        embed = discord.Embed(description = f"{ctx.author.mention} Вот тебе 18+ аватарка:", colour = 0xff0000)
-        embed.set_image(url=nekos.img('nsfw_avatar'))
-    await ctx.author.send(embed = embed)
-    await ctx.message.add_reaction('✅')
-
-@nswf.error
-async def nswf_error(error, ctx):
-    if isinstance(error, commands.CommandOnCooldown):
-        await ctx.message.add_reaction('❌')
-        await ctx.author.send(embed = discord.Embed(description = f'**{ctx.author.name}, эту команду можно использовать только раз в 25 минут!**', color=0xef5350))
-
-@bot.command()
 async def meme(ctx):
     emb = discord.Embed(description = f"**Вот тебе мем:**", color = 0xda4a)
     emb.set_image(url= random_meme())
     await ctx.send(embed=emb)
-
-@bot.command()
-@commands.check(is_owner)
-async def rainbow(ctx, role: discord.Role):
-    await ctx.send(embed = discord.Embed(description = f'**Указанная роль теперь радужная!**', color=0x0000FF))
-    while True:
-        await asyncio.sleep(0.5)
-        await role.edit(colour = discord.Colour(0x8B0000))
-        await asyncio.sleep(0.5)
-        await role.edit(colour = discord.Colour(0xB22222))
-        await asyncio.sleep(0.5)
-        await role.edit(colour = discord.Colour(0xFF0000))
-        await asyncio.sleep(0.5)
-        await role.edit(colour = discord.Colour(0xDC143C))
-        await asyncio.sleep(0.5)
-        await role.edit(colour = discord.Colour(0xFFA07A))
-        await asyncio.sleep(0.5)
-        await role.edit(colour = discord.Colour(0xE9967A))
-        await asyncio.sleep(0.5)
-        await role.edit(colour = discord.Colour(0xFA8072))
-        await asyncio.sleep(0.5)
-        await role.edit(colour = discord.Colour(0xF08080))
-        await asyncio.sleep(0.5)
-        await role.edit(colour = discord.Colour(0xCD5C5C))
-        await asyncio.sleep(0.5)
-        await role.edit(colour = discord.Colour(0xADFF2F))
-        await asyncio.sleep(0.5)
-        await role.edit(colour = discord.Colour(0x00FF00))
-        await asyncio.sleep(0.5)
-        await role.edit(colour = discord.Colour(0x32CD32))
-        await asyncio.sleep(0.5)
-        await role.edit(colour = discord.Colour(0x98FB98))
-        await asyncio.sleep(0.5)
-        await role.edit(colour = discord.Colour(0x00FA9A))
-        await asyncio.sleep(0.5)
-        await role.edit(colour = discord.Colour(0x00FF7F))
-        await asyncio.sleep(0.5)
-        await role.edit(colour = discord.Colour(0x2E8B57))
 
 @bot.command()
 @commands.has_permissions( administrator = True)
@@ -308,20 +174,10 @@ async def clear(ctx, amount:int=None):
     await ctx.channel.purge(limit=amount)
     await ctx.send(embed=embed, delete_after=6.0)
 
-@bot.event
-async def on_member_join( member ):
-    emb = discord.Embed( description = f"**Приветствую тебя {member.mention}. Ты попал на сервер `{member.guild.name}`. Удачи тебе на сервере! 😜**", color = 0xda4a )
-    role = discord.utils.get( member.guild.roles, id = 696322642747064383 ) # Айди роли которая будет выдаватся когда человек зашёл на сервер
-
-    await member.add_roles( role )
-    channel = bot.get_channel( 696322644106281032 ) # Айди канала куда будет писатся сообщение
-    await channel.send( embed = emb )
-
 @bot.command(aliases=['bot'])
 async def botinfo(ctx):
-    embed = discord.Embed(title=f"{ctx.guild.name}", description="Информация о боте **𝐖𝐨𝐨𝐟 𝐗#7002**.\n Бот был написан специально для проекта **`Woof X`**,\n Подробнее о командах: **`.help`**", color = 0x00ffff)
+    embed = discord.Embed(title=f"{ctx.guild.name}", description="Информация о боте **りんごちゃん#7002**.\n Бот был написан специально для проекта **`Woof X`**,\n Подробнее о командах: **`.help`**", color = 0x00ffff)
     embed.add_field(name=f'**Меня создал:**', value="Ｓㄚ 么  乙  ツ#8992(<@668325441224048641>)", inline=False)  # Создает строку
-    embed.add_field(name=f'**Помощь в создании:**', value="Satana★#2362 (<@342317507991961602>)", inline=False)  # Создает строку
     embed.add_field(name=f'**Лицензия:**', value="LD-v7", inline=False)  # Создает строку
     embed.add_field(name=f'**Я написан на:**', value="Discord.py", inline=False)  # Создает строку
     embed.add_field(name=f'**Версия:**', value="V.3.0.1", inline=False)  # Создает строку
@@ -418,7 +274,7 @@ async def password(ctx, lenght: int = None, number: int = None):
 @bot.command()
 async def help(ctx):
     embed1 = discord.Embed(title = '⚙ Навигация по командам:\n ❗ Обязательные параметры: `()`\n ❓ Необязательные параметры: `[]`', color=0x6fdb9e )
-    embed2 = discord.Embed(title ='💎 Базовые:', description='**``.user [@user]`` - Узнать информацию о пользователе 🎭\n ``.server`` - Узнать информацию о сервере 🧿\n `.bot` - Информация о боте 🤖\n`.avatar [@user]` - Аватар пользователя 🖼\n `.suggest (text)` - Предложить идею ✉\n `.wiki (text)` - Википедия 📖**', color=0x6fdb9e )
+    embed2 = discord.Embed(title ='💎 Базовые:', description='**``.user [@user]`` - Узнать информацию о пользователе 🎭\n ``.server`` - Узнать информацию о сервере 🧿\n `.bot` - Информация о боте 🤖\n`.avatar [@user]` - Аватар пользователя 🖼\n `.wiki (text)` - Википедия 📖**', color=0x6fdb9e )
     embed3 = discord.Embed(title ='✨ Роблокс:', description='**`.music` - Коды для музыки 💨\n `.scripts` - Скрипты для читерства 🧨\n `.script (number)` - Получить сам скрипт 💡**', color = 0x6fdb9e)
     embed4 = discord.Embed(title ='🎉 Весёлости:', description='**``.ran_color`` - Рандомный цвет в формате HEX 🩸\n ``.coin`` - Бросить монетку 🌈\n ``.math (2*2/2+2-2)`` - Решить пример :infinity:\n `.8ball (question)` - Волшебный шар 🔮\n `.password (10 10)` - Рандомный пароль 🎩\n `.meme` - Рандомный мем 🤣**', color=0x6fdb9e)
     embed5 = discord.Embed(title ='💋 Некос:', description='**`.hug (@user)` - Обнять 😜\n `.slap (@user)` - Ударить 😡\n `.ran_avatar` - Рандом. аватар 🤯\n `.kill [@user]` - Убить 🔪\n `.dog` - Собака :dog:\n `.goose` - Гусь :duck:\n `.cat` - Кот 🐱\n `.neko` - Рандомная аватарка в стиле аниме ✨**', color=0x6fdb9e)
