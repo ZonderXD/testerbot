@@ -156,7 +156,7 @@ async def clear(ctx, amount:int=None):
 
 @bot.command(aliases=['bot'])
 async def botinfo(ctx):
-    embed = discord.Embed(title=f"{ctx.guild.name}", description="Информация о боте **りんごちゃん#7002**.\n Подробнее о командах: **`#help`**", color = 0x00ffff)
+    embed = discord.Embed(title=f"{ctx.guild.name}", description="Информация о боте **𝙎𝘼𝙋𝙌 𝘽𝙊𝙏#7130**.\n Подробнее о командах: **`#help`**", color = 0x00ffff)
     embed.add_field(name=f'**Меня создал:**', value="`💦 𝙎𝘼𝙈𝙐𝙍𝘼𝙄 ツ#8992`(<@668325441224048641>)", inline=False)  # Создает строку
     embed.add_field(name=f'**Лицензия:**', value="LD-v7", inline=False)  # Создает строку
     embed.add_field(name=f'**Я написан на:**', value="Discord.py", inline=False)  # Создает строку
