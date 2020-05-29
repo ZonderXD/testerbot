@@ -74,7 +74,7 @@ async def giveaway( ctx, seconds: int, *, text ):
     message = await ctx.send(embed = discord.Embed(
         description = f"**Разыгрывается : `{text}`\nЗавершится через: `{time_end}` \n\nОрганизатор: {author.mention} \nДля участия нажмите на реакцию ниже.**",
         colour = 0x75218f).set_footer(
-        text = '💦 𝙎𝘼𝙈𝙐𝙍𝘼𝙄 ツ#8992 © | Все права защищены',
+        text = '!                    𝐃𝐚𝐫𝐤𝐌𝐨𝐨𝐧🌙#8992 © | Все права защищены',
         icon_url = ctx.message.author.avatar_url))
     await message.add_reaction("")
     while seconds > -1:
@@ -82,7 +82,7 @@ async def giveaway( ctx, seconds: int, *, text ):
         text_message = discord.Embed(
             description = f"**Разыгрывается: `{text}`\nЗавершится через: `{time_end}` \n\nОрганизатор: {author.mention} \nДля участия нажмите на реакцию ниже.**",
             colour = 0x75218f).set_footer(
-            text = '💦 𝙎𝘼𝙈𝙐𝙍𝘼𝙄 ツ#8992 © | Все права защищены',
+            text = '!                    𝐃𝐚𝐫𝐤𝐌𝐨𝐨𝐧🌙#8992 © | Все права защищены',
             icon_url = ctx.message.author.avatar_url)
         await message.edit(embed = text_message)
         await asyncio.sleep(1)
@@ -105,7 +105,7 @@ async def giveaway( ctx, seconds: int, *, text ):
             win = discord.Embed(
                 description = f'**В этом розыгрыше нет победителя!**',
                 colour = 0x75218f).set_footer(
-                text = 'Ｓㄚ 么  乙  ツ#8992 © | Все права защищены',
+                text = '!                    𝐃𝐚𝐫𝐤𝐌𝐨𝐨𝐧🌙#8992 © | Все права защищены',
                 icon_url = ctx.message.author.avatar_url)
         elif str(user_win.id) == str(bot.user.id):
             winners()
@@ -113,7 +113,7 @@ async def giveaway( ctx, seconds: int, *, text ):
             win = discord.Embed(
                 description = f'**Победитель розыгрыша: {user_win.mention}!\nНапишите организатору {author.mention}, чтобы получить награду.**',
                 colour = 0x75218f).set_footer(
-                text = '💦 𝙎𝘼𝙈𝙐𝙍𝘼𝙄 ツ#8992 © | Все права защищены',
+                text = '!                    𝐃𝐚𝐫𝐤𝐌𝐨𝐨𝐧🌙#8992 © | Все права защищены',
                 icon_url = ctx.message.author.avatar_url)
 
     winners()
@@ -121,7 +121,7 @@ async def giveaway( ctx, seconds: int, *, text ):
     await message.edit(embed = win)
     await author.send(embed = discord.Embed(description = f'**Ваш розыгрыш закончился.**',
                                             colour = 0x75218f).set_footer(
-        text = 'Ｓㄚ 么  乙  ツ#8992 © | Все права защищены',
+        text = '!                    𝐃𝐚𝐫𝐤𝐌𝐨𝐨𝐧🌙#8992 © | Все права защищены',
         icon_url = ctx.message.author.avatar_url))
 
 @bot.command()
@@ -157,13 +157,13 @@ async def clear(ctx, amount:int=None):
 @bot.command(aliases=['bot'])
 async def botinfo(ctx):
     embed = discord.Embed(title=f"{ctx.guild.name}", description="Информация о боте **𝙎𝘼𝙋𝙌 𝘽𝙊𝙏#7130**.\n Подробнее о командах: **`#help`**", color = 0x00ffff)
-    embed.add_field(name=f'**Меня создал:**', value="`💦 𝙎𝘼𝙈𝙐𝙍𝘼𝙄 ツ#8992`(<@668325441224048641>)", inline=False)  # Создает строку
+    embed.add_field(name=f'**Меня создал:**', value="`!                    𝐃𝐚𝐫𝐤𝐌𝐨𝐨𝐧🌙#8992`(<@668325441224048641>)", inline=False)  # Создает строку
     embed.add_field(name=f'**Лицензия:**', value="LD-v7", inline=False)  # Создает строку
     embed.add_field(name=f'**Я написан на:**', value="Discord.py", inline=False)  # Создает строку
     embed.add_field(name=f'**Версия:**', value="V.3.0.1", inline=False)  # Создает строку
     embed.add_field(name=f'**Патч:**', value="10", inline=False)  # Создает строку
     embed.set_thumbnail( url = bot.user.avatar_url)
-    embed.set_footer(text=f"💦 𝙎𝘼𝙈𝙐𝙍𝘼𝙄 ツ#8992 © | Все права защищены", icon_url='https://cdn.discordapp.com/avatars/668325441224048641/4677d24762cb3299d252ad4de49f76ef.webp?size=1024') # создаение футера
+    embed.set_footer(text=f"!                    𝐃𝐚𝐫𝐤𝐌𝐨𝐨𝐧🌙#8992 © | Все права защищены", icon_url='https://cdn.discordapp.com/avatars/668325441224048641/65d9718244f96a5131f137072d91647c.webp?size=1024') # создаение футера
     await ctx.send(embed=embed)
 
 @bot.command()
