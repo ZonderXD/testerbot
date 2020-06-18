@@ -36,7 +36,7 @@ async def on_ready():
 
 @bot.event
 async def is_owner(ctx):
-    return ctx.author.id == 668325441224048641 or  ctx.author.id == 491928659599425537 # Айди создателя бота
+    return ctx.author.id == 719605055547768894 or  ctx.author.id == 491928659599425537 # Айди создателя бота
 
 def random_meme():
     with open('memes_data.txt', 'r') as file:
@@ -156,14 +156,14 @@ async def clear(ctx, amount:int=None):
 
 @bot.command(aliases=['bot'])
 async def botinfo(ctx):
-    embed = discord.Embed(title=f"{ctx.guild.name}", description="Информация о боте **𝙎𝘼𝙋𝙌 𝘽𝙊𝙏#7130**.\n Подробнее о командах: **`#help`**", color = 0x00ffff)
-    embed.add_field(name=f'**Меня создал:**', value="`𝘾𝙮𝙗𝙚𝙧𝙎𝙚𝙘𝙪𝙧𝙞𝙩𝙮ツ#0001`(<@668325441224048641>)", inline=False)  # Создает строку
+    embed = discord.Embed(title=f"{ctx.guild.name}", description="Информация о боте **𝓝𝓮𝔁𝓹𝓾𝓼#7619**.\n Подробнее о командах: **`#help`**", color = 0x00ffff)
+    embed.add_field(name=f'**Меня создал:**', value="`𝙳𝚎𝚅𝚒𝚒#2576`(<@719605055547768894>)", inline=False)  # Создает строку
     embed.add_field(name=f'**Лицензия:**', value="LD-v7", inline=False)  # Создает строку
     embed.add_field(name=f'**Я написан на:**', value="Discord.py", inline=False)  # Создает строку
     embed.add_field(name=f'**Версия:**', value="V.3.0.1", inline=False)  # Создает строку
     embed.add_field(name=f'**Патч:**', value="10", inline=False)  # Создает строку
     embed.set_thumbnail( url = bot.user.avatar_url)
-    embed.set_footer(text=f"𝘾𝙮𝙗𝙚𝙧𝙎𝙚𝙘𝙪𝙧𝙞𝙩𝙮ツ#0001 © | Все права защищены", icon_url='https://cdn.discordapp.com/avatars/668325441224048641/a_4e8ca44ab97caaac6dafaed8e6dd6ec3.gif?size=1024') # создаение футера
+    embed.set_footer(text=f"𝙳𝚎𝚅𝚒𝚒#2576 © | Все права защищены", icon_url='https://cdn.discordapp.com/avatars/719605055547768894/812745a344a780f8927aefd49fb66329.webp?size=1024') # создаение футера
     await ctx.send(embed=embed)
 
 @bot.command()
